@@ -1,24 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// default
+
+import React, { useEffect } from "react";
+
+// external
+import { createTheme } from "@mui/material";
+import { Route, Routes } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+
+// internal
+import light from "./themes/light";
+import dark from "./themes/dark";
+import { RootState } from "./redux/store";
+import AppLayout from "./layouts/AppLayout";
+import Home from "./pages/Home";
+import Channel from "./pages/Channel";
+import Watch from "./pages/Watch";
 
 function App() {
+  const dispatch = useDispatch();
+
+  const mode = useSelector((state: RootState) => state.layout.mode);
+  const theme = React.useMemo(
+    () => createTheme(mode === "light" ? light : dark),
+    [mode]
+  );
+
+  useEffect(() => {}, [dispatch]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Routes>
+          <Route path="/" element={<AppLayout />}>
+            <Route index element={<Home />} />
+            <Route path="channel/:id" element={<Channel/>} />
+            <Route path="watch/:id" element={<Watch/>} />
+          </Route>
+        </Routes>
+      </ThemeProvider>
     </div>
   );
 }
