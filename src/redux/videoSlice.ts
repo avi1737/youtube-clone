@@ -2,6 +2,36 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { VideoDetailType } from "../pages/Watch/VideoDetail";
 import API from "../service";
 
+
+export type CommentInfo = {
+  videoId : string;
+  textDisplay : string;
+  textOriginal : string;
+  authorDisplayName : string;
+  authorProfileImageUrl : string;
+  publishedAt : string;
+  updatedAt : string;
+  authorChannelId : {
+    value : string;
+  }
+}
+
+export type SingleCommentType = {
+  videoId : string;
+  topLevelComment : {
+    id : string;
+    kind : string;
+    snippet : CommentInfo
+  }
+}
+
+export type CommentType = {
+  kind : string;
+  id : string;
+  snippet : SingleCommentType;
+}
+
+
 type InitialVideoState = {
   videos: any[];
   isLoading: boolean;
@@ -9,7 +39,7 @@ type InitialVideoState = {
   watchVideoDetail: VideoDetailType[];
   isWatchVideoLoading: boolean;
   isWatchVideoError: boolean;
-  videoComments: [];
+  videoComments: CommentType[];
   isCommentLoading: boolean;
   isCommentError: boolean;
 };
@@ -120,6 +150,8 @@ const videoSlice = createSlice({
       state.isWatchVideoLoading = false;
       state.isWatchVideoError = true;
     });
+
+    
     builder.addCase(fetchComments.pending, (state, action) => {
       state.isCommentLoading = true;
     });

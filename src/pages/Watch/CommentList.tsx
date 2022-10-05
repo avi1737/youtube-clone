@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/shared/Loader";
@@ -12,6 +12,7 @@ type CommentListType = {
 };
 
 function CommentList(props: CommentListType) {
+
   const dispatch = useDispatch<AppDispatch>();
   const { isCommentLoading, isCommentError, videoComments } = useSelector(
     (state: RootState) => state.videos
@@ -32,13 +33,13 @@ function CommentList(props: CommentListType) {
   }
 
   return (
-    <>
-      {videoComments && videoComments.length > 0 ? (
-        videoComments.slice(0, 10).map((item, index) => <Comment key={index} />)
+    <Box sx={{ display : "flex" , flexDirection : "column" , justifyContent : "flex-start"}}>
+    {videoComments && videoComments.length > 0 ? (
+        videoComments.slice(0, 10).map((item) => <Comment key={item.id} data = {item.snippet}/>)
       ) : (
         <Typography>No Comments to Load..</Typography>
       )}
-    </>
+    </Box>
   );
 }
 

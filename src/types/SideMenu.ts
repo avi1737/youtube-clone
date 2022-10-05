@@ -34,13 +34,13 @@ const Menu: MenuItem[] = [
   {
     title: "Explore",
     icon: ExploreOutlinedIcon,
-    navigationLink: "/channel",
+    navigationLink: "",
   },
 
   {
     title: "Shorts",
     icon: SlowMotionVideoOutlinedIcon,
-    navigationLink: "/search",
+    navigationLink: "",
   },
 
   {
@@ -60,13 +60,13 @@ const Menu2: MenuItem[] = [
   {
     title: "History",
     icon: HistoryOutlinedIcon,
-    navigationLink: "/channel",
+    navigationLink: "/",
   },
 
   {
     title: "Your Videos",
     icon: VideoLibraryOutlinedIcon,
-    navigationLink: "/search",
+    navigationLink: "/",
   },
 
   {

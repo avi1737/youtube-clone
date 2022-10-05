@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/shared/Loader";
@@ -29,12 +29,11 @@ function Home() {
 
   const renderUI = () => {
     return (
-      videos.length > 0 &&
-      videos.map((item) => (
+      (videos.length > 0 ? videos.map((item) => (
         <Grid item xs={12} sm={6} md={4} lg={3} key={item.id.videoId}>
           <VideoCard data={item} />
         </Grid>
-      ))
+      )) : <Typography>No Videos to Load</Typography>) 
     );
   };
 
